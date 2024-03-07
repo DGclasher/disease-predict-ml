@@ -6,17 +6,18 @@
     <title>Symptom Predictor</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 w-[100vw]">
-    <div class="container mx-auto px-4 py-8 flex w-full flex-col item-center justify-center mx-auto">
+<body class="bg-gray-100 w-[100vw] overflow-x-hidden  text-zinc-950">
+    <div class="container  px-4 py-8 flex flex-col w-full  item-center justify-center ">
         <div class="text-3xl font-bold mb-8 text-center">Symptom Predictor</div>
-        <form action="/" method="post" class="max-w-lg mx-auto">
-            <select name="model" id="">
+        <form action="/" method="post" class="w-[400px]  focus:outline-0 mx-auto">
+            <label for="model" class="block mb-2 text-xl font-semibold">Select a Machine Learning Model</label>
+            <select name="model" id="" class="w-full focus:outline-0 px-4 py-2 border border-zinc-400 mb-4 rounded-md">
                 <option value="random_forest">Random Forest</option>
                 <option value="decision_tree">Decision Tree</option>
                 <option value="logistic_regression">Logistic Regression</option>
                 <option value="naive_bayes">Logistic Regression</option>
             </select>
-            <div class="mb-4 bg-gray-200 shadow-xl border border-gray-400 rounded-xl p-8">
+            <div class="mb-4 border border-zinc-400 shadow-xl  rounded-xl p-8">
                 <label for="symptom1" class="block mb-2">Symptom 1:</label>
                 <select id="symptom1" name="symptom1" class="w-full px-4 py-2 border rounded-md">
                     {% for symptom in symptoms %}
@@ -47,23 +48,19 @@
                         <option value="{{ symptom }}">{{ symptom }}</option>
                     {% endfor %}
                 </select>
-                <label for="symptom6" class="block mb-2">Symptom 6:</label>
-                <select id="symptom6" name="symptom6" class="w-full px-4 py-2 border rounded-md">
-                    {% for symptom in symptoms %}
-                        <option value="{{ symptom }}">{{ symptom }}</option>
-                    {% endfor %}
-                </select>
+    
             </div>
 
-            <div class="mt-4">
-                <input type="submit" value="Predict" class="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer">
+            <div class="mt-4 mx-auto flex items-center justify-center">
+                <input type="submit" value="Predict" class="bg-blue-500 hover:bg-blue-700 text-white px-16 py-2 rounded-md cursor-pointer">
             </div>
+            {% if prediction_text %}
+            <div class="text-center max-w-full mt-4 bg-lime-300 border border-lime-600 rounded-xl">
+                <h2 class="p-4 text-xl font-semibold ">{{ prediction_text }}</h2>
+            </div>
+            {% endif %}
         </form>
-        {% if prediction_text %}
-        <div class="text-center">
-            <h2 class="mt-8 text-xl font-semibold text-green-600">{{ prediction_text }}</h2>
-        </div>
-        {% endif %}
+       
     </div>
 </body>
 </html>
