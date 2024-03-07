@@ -15,7 +15,7 @@
                 <option value="random_forest">Random Forest</option>
                 <option value="decision_tree">Decision Tree</option>
                 <option value="logistic_regression">Logistic Regression</option>
-                <option value="naive_bayes">Logistic Regression</option>
+                <option value="naive_bayes">Gaussian Naive Bayes</option>
             </select>
             <div class="mb-4 border border-zinc-400 shadow-xl  rounded-xl p-8">
                 <label for="symptom1" class="block mb-2">Symptom 1:</label>
@@ -54,9 +54,9 @@
             <div class="mt-4 mx-auto flex items-center justify-center">
                 <input type="submit" value="Predict" class="bg-blue-500 hover:bg-blue-700 text-white px-16 py-2 rounded-md cursor-pointer">
             </div>
-            {% if prediction_text %}
+            {% if prediction_res %}
             <div class="text-center max-w-full mt-4 bg-lime-300 border border-lime-600 rounded-xl">
-                <h2 class="p-4 text-xl font-semibold ">{{ prediction_text }}</h2>
+                <h2 class="p-4 text-xl font-semibold ">Patient has {{ prediction_res }} using {{ prediction_model }}</h2>
             </div>
             {% endif %}
         </form>

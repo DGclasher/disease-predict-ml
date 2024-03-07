@@ -31,7 +31,7 @@ def home():
         symptoms = symptoms[1:]
         symptoms_encoded = encode_symptoms(symptoms)
         prediction = model.predict([symptoms_encoded])
-        return render_template('index.html', symptoms=all_symptoms, prediction_text='The patient has {} using {}'.format(prediction[0], model_form))
+        return render_template('index.html', symptoms=all_symptoms, prediction_res=prediction[0], prediction_model=model_form)
     return render_template('index.html', symptoms=all_symptoms)
 
 if __name__ == '__main__':
