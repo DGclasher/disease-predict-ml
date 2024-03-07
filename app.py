@@ -11,7 +11,6 @@ def read_csv(filename):
         top_row = next(reader)
         return top_row
     
-model = joblib.load('./model/random_forest.pkl')
 all_symptoms = read_csv('./datasets/Training.csv')
 all_symptoms = all_symptoms[:-1]
 
@@ -26,10 +25,13 @@ def encode_symptoms(symptoms):
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
+        model_form = request.form['model']
+        model = joblib.load('./model/{}.pkl'.format(model_form))
         symptoms = [x for x in request.form.values()]
+        symptoms = symptoms[1:]
         symptoms_encoded = encode_symptoms(symptoms)
         prediction = model.predict([symptoms_encoded])
-        return render_template('index.html', symptoms=all_symptoms, prediction_text='The patient has {}'.format(prediction[0]))
+        return render_template('index.html', symptoms=all_symptoms, prediction_text='The patient has {} using {}'.format(prediction[0], model_form))
     return render_template('index.html', symptoms=all_symptoms)
 
 if __name__ == '__main__':
